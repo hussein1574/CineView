@@ -1,8 +1,5 @@
-@if(movie()){
-<div
-  class="flex-shrink-0 w-48 md:w-56 group movie-card-link"
-  [routerLink]="['/movies', movie().id]"
->
+@if(movie()){ @if(cardPage() === 'home'){
+<div class="flex-shrink-0 w-48 md:w-56 group movie-card-link">
   <div
     class="relative rounded-lg overflow-hidden transition-transform duration-300 ease-in-out group-hover:scale-105"
   >
@@ -11,7 +8,10 @@
       alt="Movie Poster"
       class="w-full h-auto"
     />
-    <div class="absolute inset-0 bg-black/20"></div>
+    <div
+      class="absolute inset-0 bg-black/20 cursor-pointer"
+      [routerLink]="['/movies', movie().id]"
+    ></div>
     <div
       class="absolute bottom-0 left-0 right-0 p-4 card-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-300"
     >
@@ -25,7 +25,10 @@
       </div>
     </div>
     <button
-      class="absolute top-2 right-2 bg-black/50 p-2 rounded-full text-white hover:bg-teal-500 hover:text-white transition-colors duration-200"
+      class="{{
+        isBookmarked() ? 'bg-teal-500 text-black' : ''
+      }} absolute top-2 right-2 bg-black/50 p-2 rounded-full  hover:bg-teal-500 hover:text-white transition-colors duration-200 cursor-pointer"
+      (click)="notifyParent()"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -45,4 +48,29 @@
   </div>
 </div>
 
-}
+} @else if (cardPage() === 'watchlist') {
+<div class="group">
+  <div class="relative rounded-lg overflow-hidden">
+    <img src="{{ imageBaseUrl }}/{{ movie().poster_path }}" /><button
+      class="absolute top-2 right-2 bg-red-600/80 p-2 rounded-full text-white hover:bg-red-500 transition-colors duration-200 opacity-0 group-hover:opacity-100 cursor-pointer"
+      (click)="notifyParent()"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="w-5 h-5"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+</div>
+} }

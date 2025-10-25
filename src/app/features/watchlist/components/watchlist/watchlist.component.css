@@ -1,25 +1,25 @@
 /* Custom Scrollbar Styling */
-:host ::ng-deep .custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px;
 }
 
-:host ::ng-deep .custom-scrollbar::-webkit-scrollbar-track {
+.custom-scrollbar::-webkit-scrollbar-track {
   background: rgba(31, 41, 55, 0.5);
   border-radius: 10px;
 }
 
-:host ::ng-deep .custom-scrollbar::-webkit-scrollbar-thumb {
+.custom-scrollbar::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, #14b8a6, #0d9488);
   border-radius: 10px;
   transition: background 0.3s ease;
 }
 
-:host ::ng-deep .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #0d9488, #0f766e);
 }
 
 /* Firefox */
-:host ::ng-deep .custom-scrollbar {
+.custom-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: #14b8a6 rgba(31, 41, 55, 0.5);
 }

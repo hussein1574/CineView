@@ -1,12 +1,11 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./features/movies/components/movie-list/movie-list.component').then(
-        (c) => c.MovieList
-      ),
+      import('./features/home/components/home/home.component').then((c) => c.HomeComponent),
   },
   {
     path: 'movies/:id',
@@ -14,5 +13,13 @@ export const routes: Routes = [
       import('./features/movies/components/movie-details/movie-details.component').then(
         (c) => c.MovieDetailsComponent
       ),
+  },
+  {
+    path: 'watchlist',
+    loadComponent: () =>
+      import('./features/watchlist/components/watchlist/watchlist.component').then(
+        (c) => c.WatchlistComponent
+      ),
+    canActivate: [authGuard],
   },
 ];

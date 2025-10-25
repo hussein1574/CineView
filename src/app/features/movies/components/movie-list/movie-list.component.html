@@ -1,11 +1,14 @@
-<div class="space-y-12">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
   <section>
     <h2 class="text-2xl font-bold text-white mb-4">Trending Now</h2>
-    <div
-      class="flex space-x-4 overflow-x-auto pb-4 carousel-scrollbar-hidden -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8"
-    >
+    <div class="flex space-x-4 overflow-x-auto pb-4 custom-scrollbar">
       @for(movie of movies(); track movie.id){
-      <movie-card [movie]="movie"></movie-card>
+      <movie-card
+        [movie]="movie"
+        [isBookmarked]="bookmarkedIds().has(movie.id)"
+        [cardPage]="'home'"
+        (bookmarked)="handleBookmarkEventFromCard($event)"
+      ></movie-card>
       }
     </div>
   </section>

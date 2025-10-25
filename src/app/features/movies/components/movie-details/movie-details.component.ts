@@ -1,6 +1,6 @@
 import { Component, computed, inject, Input, signal } from '@angular/core';
 import { Movie } from '../../models/movie.model';
-import { MoviesService } from '../../services/movies-service';
+import { MoviesService } from '../../../../core/services/movie/movies-service';
 import { OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../../environments/environment';

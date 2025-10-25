@@ -1,0 +1,12 @@
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <movie-of-the-year
+    (bookmarkRequest)="bookmarkMovie($event)"
+    [isBookmarked]="isMovieOfTheYearBookmarked()"
+    [movie]="movieOfTheYear()"
+  ></movie-of-the-year>
+  <movie-list
+    (bookmarkRequest)="bookmarkMovie($event)"
+    [bookmarkedIds]="bookmarkedIds()"
+    [movies]="movieList()"
+  ></movie-list>
+</main>
