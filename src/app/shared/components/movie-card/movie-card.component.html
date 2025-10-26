@@ -1,12 +1,12 @@
-@if(movie()){ @if(cardPage() === 'home'){
+@if(movie()) { @if(cardPage() === 'home'){
 <div class="flex-shrink-0 w-48 md:w-56 group movie-card-link">
   <div
-    class="relative rounded-lg overflow-hidden transition-transform duration-300 ease-in-out group-hover:scale-105"
+    class="relative rounded-lg overflow-hidden transition-transform duration-300 ease-in-out group-hover:scale-105 h-[330px]"
   >
     <img
-      src="{{ imageBaseUrl }}/{{ movie().poster_path }}"
+      src="{{ imageBaseUrl }}{{ movie().poster_path }}"
       alt="Movie Poster"
-      class="w-full h-auto"
+      class="w-full h-auto object-fill"
     />
     <div
       class="absolute inset-0 bg-black/20 cursor-pointer"

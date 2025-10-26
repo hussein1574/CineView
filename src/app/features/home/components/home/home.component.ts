@@ -3,7 +3,6 @@ import { MovieListComponent } from '../../../movies/components/movie-list/movie-
 import { MovieOfTheYearComponent } from '../../../movies/components/movie-of-the-year/movie-of-the-year.component';
 import { MoviesService } from '../../../../core/services/movie/movies-service';
 import { Movie } from '../../../movies/models/movie.model';
-import { AuthService } from '../../../../core/services/auth/auth.service';
 import { WatchlistService } from '../../../../core/services/watchlist/watchlist.service';
 
 @Component({
@@ -14,20 +13,20 @@ import { WatchlistService } from '../../../../core/services/watchlist/watchlist.
 })
 export class HomeComponent implements OnInit {
   private moviesService = inject(MoviesService);
-  private authService = inject(AuthService);
   private watchListService = inject(WatchlistService);
 
   private allMovies = signal<Movie[]>([]);
   isLoading = signal<boolean>(true);
   movieOfTheYear = computed(() => this.allMovies()?.[0] ?? null);
   movieList = computed(() => this.allMovies().slice(1));
-  public bookmarkedIds = computed(() => new Set(this.watchList().map((movie) => movie.id)));
+
+  // Use bookmarkedIds from service
+  public bookmarkedIds = this.watchListService.bookmarkedIds;
+
   isMovieOfTheYearBookmarked = computed(() => {
     const movie = this.movieOfTheYear();
     return movie ? this.bookmarkedIds().has(movie.id) : false;
   });
-
-  private watchList = this.watchListService.watchlist;
 
   ngOnInit(): void {
     this.isLoading.set(true);
@@ -44,11 +43,6 @@ export class HomeComponent implements OnInit {
   }
 
   bookmarkMovie(movie: Movie) {
-    if (this.authService.isLoggedIn()) {
-      if (!this.bookmarkedIds().has(movie.id)) this.watchListService.addMovie(movie);
-      else this.watchListService.removeMovie(movie.id);
-    } else {
-      alert('Please login');
-    }
+    this.watchListService.toggleBookmark(movie);
   }
 }

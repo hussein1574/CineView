@@ -1,5 +1,5 @@
 @if(movie(); as loadedMovie){
-<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<main class="container mx-auto px-4 sm:px-6 lg:px-8">
   <section
     class="relative rounded-lg overflow-hidden -mx-4 sm:-mx-6 lg:-mx-8 h-[50vh] min-h-[350px]"
   >
@@ -22,8 +22,8 @@
         </h1>
         <div class="flex items-center space-x-4 text-gray-400 mt-2">
           <span>{{ loadedMovie.release_date | date : 'yyyy' }}</span
-          ><span>•</span><span>{{ loadedMovie.runtime }} min</span><span>•</span
-          ><span>{{ movieGenres() }}</span>
+          ><span>•</span><span>{{ loadedMovie.runtime | minutesToHours }}</span
+          ><span>•</span><span>{{ movieGenres() }}</span>
         </div>
       </div>
     </div>

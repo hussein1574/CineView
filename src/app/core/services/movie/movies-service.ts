@@ -18,4 +18,9 @@ export class MoviesService {
   getMovieDetails(id: string): Observable<Movie> {
     return this.http.get<Movie>(`${this.apiUrl}/movie/${id}`);
   }
+  searchForMovie(query: string): Observable<Movie[]> {
+    return this.http
+      .get<MovieListResponse>(`${this.apiUrl}/search/movie?query=${query}`)
+      .pipe(map((response) => response.results));
+  }
 }

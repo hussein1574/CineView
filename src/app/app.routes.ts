@@ -22,4 +22,11 @@ export const routes: Routes = [
       ),
     canActivate: [authGuard],
   },
+  {
+    path: 'search',
+    loadComponent: () =>
+      import('./features/search/components/search-page/search-page.component').then(
+        (c) => c.SearchPageComponent
+      ),
+  },
 ];

@@ -4,10 +4,11 @@ import { MoviesService } from '../../../../core/services/movie/movies-service';
 import { OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../../environments/environment';
+import { MinutesToHoursPipe } from '../../../../shared/pipes/minutes-to-hours-pipe';
 
 @Component({
   selector: 'app-movie-details.component',
-  imports: [CommonModule],
+  imports: [CommonModule, MinutesToHoursPipe],
   templateUrl: './movie-details.component.html',
   styleUrl: './movie-details.component.css',
 })
