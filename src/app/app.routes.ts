@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './core/guards/auth.guard';
+import { authGuard, publicGuard } from './core/guards/index';
 
 export const routes: Routes = [
   {
@@ -28,5 +28,11 @@ export const routes: Routes = [
       import('./features/search/components/search-page/search-page.component').then(
         (c) => c.SearchPageComponent
       ),
+  },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./features/auth/components/login/login.component').then((c) => c.LoginComponent),
+    canActivate: [publicGuard],
   },
 ];

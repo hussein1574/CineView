@@ -1,0 +1,60 @@
+<div>
+  <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex items-center justify-center min-h-[60vh]">
+      <div class="bg-gray-900/50 p-8 md:p-12 rounded-lg shadow-2xl w-full max-w-md">
+        <h1 class="text-3xl font-bold text-white text-center mb-6">Login to CineView</h1>
+        <div class="space-y-6">
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-300">Email address</label>
+            <input
+              [formControl]="emailInput"
+              type="email"
+              name="email"
+              id="email"
+              autocomplete="email"
+              required
+              class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+            <div class="h-4 mt-1">
+              @if (emailInput.invalid && (emailInput.dirty || emailInput.touched)) { @if
+              (emailInput.hasError('required')) {
+              <p class="text-red-400 text-sm">Email is required.</p>
+              } @if (emailInput.hasError('email')) {
+              <p class="text-red-400 text-sm">Please enter a valid email.</p>
+              } }
+            </div>
+          </div>
+          <div>
+            <label for="password" class="block text-sm font-medium text-gray-300">Password</label>
+            <input
+              [formControl]="passwordInput"
+              type="password"
+              name="password"
+              id="password"
+              autocomplete="current-password"
+              required
+              class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+            <div class="h-4 mt-1">
+              @if (passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)) { @if
+              (passwordInput.hasError('required')) {
+              <p class="text-red-400 text-sm">Password is required.</p>
+              } @if (passwordInput.hasError('minlength')) {
+              <p class="text-red-400 text-sm">Password must be at least 6 chars.</p>
+              } }
+            </div>
+          </div>
+          <div>
+            <button
+              (click)="onSubmit()"
+              type="submit"
+              class="w-full flex justify-center py-3 px-4 border border-transparent rounded-full shadow-sm text-lg font-bold text-white bg-teal-500 hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+            >
+              Sign in
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

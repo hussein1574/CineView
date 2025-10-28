@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { RouterOutlet, RouterLinkWithHref } from '@angular/router';
+import { RouterOutlet, RouterLinkWithHref, Router } from '@angular/router';
 import { AuthService } from './core/services/auth/auth.service';
 
 @Component({
@@ -10,16 +10,17 @@ import { AuthService } from './core/services/auth/auth.service';
 })
 export class App {
   protected readonly title = signal('CineView');
-  private authSerive = inject(AuthService);
-  isLoggedIn = this.authSerive.isLoggedIn;
+  private router = inject(Router);
+  private authService = inject(AuthService);
+  isLoggedIn = this.authService.isLoggedIn;
 
-  toggleLogin() {
+  currentUserName = this.authService.currentUserName;
+
+  redirectToLogin() {
     if (this.isLoggedIn()) {
-      this.authSerive.logout();
-      alert('You have been logged out');
+      this.authService.logout();
     } else {
-      this.authSerive.login();
-      alert('You have been logged in');
+      this.router.navigate(['/login']);
     }
   }
 }
