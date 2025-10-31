@@ -1,4 +1,5 @@
 import { computed, Injectable, signal } from '@angular/core';
+import { Movie } from '../../../features/movies/models/movie.model';
 
 @Injectable({
   providedIn: 'root',
@@ -8,15 +9,18 @@ export class AuthService {
     username: 'user',
     password: 'password',
     name: 'John Doe',
-    bookmarkedMovies: [],
+    bookmarkedMovies: [] as Movie[],
   };
-  private isLoggedInSignal = signal<boolean>(false);
 
+  private isLoggedInSignal = signal<boolean>(false);
   public isLoggedIn = this.isLoggedInSignal.asReadonly();
 
-  private currentUserSignal = signal<{ name: string } | null>(null);
+  private currentUserSignal = signal<{ name: string; bookmarkedMovies: Movie[] } | null>(null);
   public currentUser = this.currentUserSignal.asReadonly();
   public currentUserName = computed(() => this.currentUser()?.name ?? null);
+
+  // Expose bookmarked movies
+  public bookmarkedMovies = computed(() => this.currentUser()?.bookmarkedMovies ?? []);
 
   constructor() {
     const storedUser = localStorage.getItem('user');
@@ -42,5 +46,29 @@ export class AuthService {
     this.isLoggedInSignal.set(false);
     this.currentUserSignal.set(null);
     localStorage.removeItem('user');
+  }
+
+  addBookmarkedMovie(movie: Movie) {
+    const currentUser = this.currentUserSignal();
+    if (currentUser) {
+      const updatedUser = {
+        ...currentUser,
+        bookmarkedMovies: [...currentUser.bookmarkedMovies, movie],
+      };
+      this.currentUserSignal.set(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+    }
+  }
+
+  removeBookmarkedMovie(movieId: number) {
+    const currentUser = this.currentUserSignal();
+    if (currentUser) {
+      const updatedUser = {
+        ...currentUser,
+        bookmarkedMovies: currentUser.bookmarkedMovies.filter((movie) => movie.id !== movieId),
+      };
+      this.currentUserSignal.set(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+    }
   }
 }

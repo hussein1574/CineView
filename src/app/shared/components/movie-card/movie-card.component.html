@@ -4,7 +4,7 @@
     class="relative rounded-lg overflow-hidden transition-transform duration-300 ease-in-out group-hover:scale-105 h-[330px]"
   >
     <img
-      src="{{ imageBaseUrl }}{{ movie().poster_path }}"
+      src="{{ tmdbImageBaseUrl }}{{ movie().poster_path }}"
       alt="Movie Poster"
       class="w-full h-auto object-fill"
     />
@@ -51,7 +51,7 @@
 } @else if (cardPage() === 'watchlist') {
 <div class="group">
   <div class="relative rounded-lg overflow-hidden">
-    <img src="{{ imageBaseUrl }}/{{ movie().poster_path }}" /><button
+    <img src="{{ tmdbImageBaseUrl }}/{{ movie().poster_path }}" /><button
       class="absolute top-2 right-2 bg-red-600/80 p-2 rounded-full text-white hover:bg-red-500 transition-colors duration-200 opacity-0 group-hover:opacity-100 cursor-pointer"
       (click)="notifyParent()"
     >

@@ -14,7 +14,7 @@ export class MovieCardComponent {
   movie = input.required<Movie>();
   isBookmarked = input.required<boolean>();
   bookmarked = output<Movie>();
-  imageBaseUrl = environment.imageBaseUrl;
+  tmdbImageBaseUrl = environment.tmdbImageBaseUrl;
 
   notifyParent() {
     this.bookmarked.emit(this.movie());

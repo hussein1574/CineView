@@ -1,13 +1,21 @@
 import { HttpRequest, HttpHandlerFn } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-export function appendAPITokenInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) {
-  const apiKey = environment.apiKey;
-  const apiUrl = environment.apiUrl;
-  if (req.url.startsWith(apiUrl)) {
-    const reqWithKey = req.clone({
-      setParams: { api_key: apiKey },
+export function apiKeysInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) {
+  const tmdbApiKey = environment.tmdbAPIKey;
+  const tmdbApiUrl = environment.tmdbAPIUrl;
+  const geminiApiUrl = environment.geminiAPIUrl;
+  const geminiApiKey = environment.geminiAPIKey;
+  if (req.url.startsWith(tmdbApiUrl)) {
+    const tmdbReq = req.clone({
+      setParams: { api_key: tmdbApiKey },
     });
-    return next(reqWithKey);
+    return next(tmdbReq);
+  }
+  if (req.url.startsWith(geminiApiUrl)) {
+    const geminiReq = req.clone({
+      setParams: { key: geminiApiKey },
+    });
+    return next(geminiReq);
   }
   return next(req);
 }

@@ -5,14 +5,14 @@
   >
     <div
       class="absolute inset-0 bg-cover bg-center"
-      style="background-image: url('{{ imageBaseUrl }}/{{ loadedMovie.backdrop_path }}')"
+      style="background-image: url('{{ tmdbImageBaseUrl }}/{{ loadedMovie.backdrop_path }}')"
     ></div>
     <div class="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent"></div>
   </section>
   <section class="relative -mt-32 z-10">
     <div class="flex flex-col md:flex-row items-end space-y-4 md:space-y-0 md:space-x-8">
       <img
-        src="{{ imageBaseUrl }}/{{ loadedMovie.poster_path }}"
+        src="{{ tmdbImageBaseUrl }}/{{ loadedMovie.poster_path }}"
         alt="Movie Poster"
         class="w-64 rounded-lg shadow-2xl"
       />
@@ -41,6 +41,7 @@
           <div class="flex items-center justify-between">
             <h3 class="text-lg font-bold text-teal-400">Gemini AI Summary</h3>
             <button
+              (click)="summarize()"
               id="get-ai-summary"
               class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-full text-sm flex items-center space-x-2 cursor-pointer"
             >
@@ -64,10 +65,22 @@
               <span>Generate</span>
             </button>
           </div>
-          <div id="ai-summary-container" class="mt-4 text-gray-400">
-            Click "Generate" to get an AI-powered summary.
+          <div
+            id="ai-summary-container"
+            class="mt-4 text-gray-400 {{ AISummaryLoading() ? 'text-center' : '' }}"
+          >
+            {{
+              AISummaryLoading()
+                ? 'Generating summary...'
+                : AISummary()
+                ? AISummary()
+                : 'Click "Generate" to get an AI-generated summary of this movie.'
+            }}
           </div>
-          <div id="ai-summary-loader" class="hidden mt-4 flex justify-center">
+          <div
+            id="ai-summary-loader"
+            class="{{ AISummaryLoading() ? '' : 'hidden' }} mt-4 flex justify-center"
+          >
             <div class="loader"></div>
           </div>
         </div>
@@ -89,5 +102,7 @@
   </section>
 </main>
 } @else {
-<h1>Test</h1>
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-white">
+  <p class="text-xl">Movie details are not available at the moment.</p>
+</main>
 }

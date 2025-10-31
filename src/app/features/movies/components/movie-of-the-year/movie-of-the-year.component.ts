@@ -12,7 +12,7 @@ export class MovieOfTheYearComponent {
   movie = input.required<Movie | null>();
   isBookmarked = input.required<boolean>();
   bookmarkRequest = output<Movie>();
-  imageBaseUrl = environment.imageBaseUrl;
+  tmdbImageBaseUrl = environment.tmdbImageBaseUrl;
 
   onBookmarkClick() {
     const currentMovie = this.movie();

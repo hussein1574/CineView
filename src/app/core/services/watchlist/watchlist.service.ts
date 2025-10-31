@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable } from '@angular/core';
 import { Movie } from '../../../features/movies/models/movie.model';
 import { AuthService } from '../auth/auth.service';
 
@@ -8,17 +8,17 @@ import { AuthService } from '../auth/auth.service';
 export class WatchlistService {
   private authService = inject(AuthService);
 
-  private watchlistSignal = signal<Movie[]>([]);
-  public watchlist = this.watchlistSignal.asReadonly();
+  // Use bookmarked movies from AuthService
+  public watchlist = this.authService.bookmarkedMovies;
 
   public bookmarkedIds = computed(() => new Set(this.watchlist().map((movie) => movie.id)));
 
   addMovie(movie: Movie) {
-    this.watchlistSignal.update((curList) => [...curList, movie]);
+    this.authService.addBookmarkedMovie(movie);
   }
 
   removeMovie(movieId: number) {
-    this.watchlistSignal.update((curList) => curList.filter((movie) => movieId !== movie.id));
+    this.authService.removeBookmarkedMovie(movieId);
   }
 
   // Toggle bookmark - can be used by any component
