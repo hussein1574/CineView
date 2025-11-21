@@ -1,9 +1,3 @@
-Here is a clean, professional `README.md` file for your project based on all the code you've provided.
-
-You can copy and paste this directly into your `README.md` file on GitHub.
-
----
-
 # 🎬 CineView
 
 A modern, responsive movie discovery web application built with the latest Angular features. This app uses the TMDB API for movie data and integrates with the Google Gemini AI API for smart search and content summarization.
